@@ -77,22 +77,35 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
                     do{
                         valid = true;
-                        System.out.print("\tEnter Deposit value: ");
-                        value = SCANNER.nextDouble();
-                        SCANNER.nextLine();
-                        if (value < 0 || value < 5000){
-                            System.out.printf(ERROR_MSG, "Insufficent Amount");
+                        System.out.print("\tEnter Customer Name: ");
+                        name = SCANNER.nextLine().strip();
+                        if (name.isBlank()){
+                            System.out.printf(ERROR_MSG, "Customer name can't be empty");
                             valid = false;
                             continue;
                         }
-                        
+                        for (int i = 0; i < name.length(); i++) {
+                            if (!(Character.isLetter(name.charAt(i)) || 
+                                Character.isSpaceChar(name.charAt(i))) ) {
+                                System.out.printf(ERROR_MSG, "Invalid name");
+                                valid = false;
                                 break;
-                           
-                           
-                           
-                            
+                            }
                         }
-                    while(!valid);
+                        
+
+                        valid = true;
+                        System.out.print("\tEnter Deposit value: ");
+                        value = SCANNER.nextDouble();
+                        SCANNER.nextLine();
+                        if ( value < 5000){
+                            System.out.printf(ERROR_MSG, "Insufficent Amount");
+                            valid = false;
+                               break;
+                        }
+                           
+                        }
+                              while(!valid);
 
 
                     case DEPOSITS:
