@@ -104,7 +104,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
                         if (id.isBlank()){
                             System.out.printf(ERROR_MSG, "ID can't be empty");
                             valid = false;
-                        }else if (!id.startsWith("C-") || id.length() < 3){
+                        }else if (!id.startsWith("SDB-") || id.length() < 3){
                             System.out.printf(ERROR_MSG, "Invalid ID format");
                             valid = false;
                         }else{
