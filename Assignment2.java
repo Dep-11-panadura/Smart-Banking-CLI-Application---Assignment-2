@@ -25,11 +25,11 @@ private static final Scanner SCANNER = new Scanner(System.in);
         final String ERROR_MSG = String.format("\t%s%s%s\n", COLOR_RED_BOLD, "%s", RESET);
         final String SUCCESS_MSG = String.format("\t%s%s%s\n", COLOR_GREEN_BOLD, "%s", RESET);
 
-        String[] accounts = new String[0];
-        String[] depositIds = new String[0];
-        String[] withdrawalIds = new String[0];
-        String[] depositterName = new String [0];
-        String[] withdrawalsNmae = new String [0];
+        String[][] accounts = new String[0][3];
+        // String[] depositIds = new String[0];
+        // String[] withdrawalIds = new String[0];
+        // String[] depositterName = new String [0];
+        // String[] withdrawalsNmae = new String [0];
 
         String screen = DASHBOARD;
   do{
