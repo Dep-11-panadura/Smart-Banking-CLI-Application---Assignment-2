@@ -26,6 +26,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
         final String SUCCESS_MSG = String.format("\t%s%s%s\n", COLOR_GREEN_BOLD, "%s", RESET);
 
         String[][] accounts = new String[0][3];
+      
         // String[] depositIds = new String[0];
         // String[] withdrawalIds = new String[0];
         // String[] depositterName = new String [0];
@@ -68,9 +69,8 @@ private static final Scanner SCANNER = new Scanner(System.in);
                     case CREATE_NEW_ACCOUNT:
 
                     
-                    
                     System.out.printf("\tAccount ID: SDB-%05d \n", (accounts.length + 1));
-                    String id;
+                    String id = "";
                     String name;
                     boolean valid;
                     double value;
@@ -92,8 +92,9 @@ private static final Scanner SCANNER = new Scanner(System.in);
                                 break;
                             }
                         }
-                        
+                    }while(!valid);
 
+                    do{
                         valid = true;
                         System.out.print("\tEnter Deposit value: ");
                         value = SCANNER.nextDouble();
@@ -101,18 +102,39 @@ private static final Scanner SCANNER = new Scanner(System.in);
                         if ( value < 5000){
                             System.out.printf(ERROR_MSG, "Insufficent Amount");
                             valid = false;
-                               break;
+                          }  //  break;
+                        }while(!valid);
+                              
+                           // valid = true;
+                            String [][] newaccounts = new String[accounts.length+1][3];
+
+                        for (int i = 0; i < accounts.length; i++) {
+                            newaccounts [i] = accounts [i];
                         }
+
+                            newaccounts [newaccounts.length -1][0] = id;
+                            newaccounts [newaccounts.length -1][1] = name;
+                            newaccounts [newaccounts.length -1][2] = Double.toString(value);
+
+                                accounts =newaccounts;
+                            System.out.println();
+                            System.out.printf(SUCCESS_MSG, String.format("%s:%s added successfully \n", id, name));
+                            System.out.print("\tDo you want to continue adding Deposit? (Y/n)");
+                            if (!SCANNER.nextLine().toUpperCase().strip().equals("Y")){screen =DASHBOARD;}
+                               // screen = DASHBOARD;
+                            valid = false;
+                              break;
                            
-                        }
-                              while(!valid);
+                        
+                            
 
 
-                    case DEPOSITS:
+                  case DEPOSITS:
 
                     do {
+                          
                         valid = true;
-                        System.out.print("\tEnter Account Number: ");  // C-ac
+                        System.out.print("\tEnter Account Number: ");  
                         id = SCANNER.nextLine().toUpperCase().strip();
                         if (id.isBlank()){
                             System.out.printf(ERROR_MSG, "ID can't be empty");
@@ -144,7 +166,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
 
 
-                    case WITHDRAWLS :
+ case WITHDRAWLS :
 
                     do {
                         valid = true;
@@ -255,7 +277,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
                     }while (!valid);
     
 
-                    case DELETE_ACCOUNT :
+ case DELETE_ACCOUNT :
                     
                     do {
                         valid = true;
@@ -287,8 +309,8 @@ private static final Scanner SCANNER = new Scanner(System.in);
                             if (!exists){
                                 valid = false;
                                 System.out.printf(ERROR_MSG, "Customer ID does not exist");
-                            }
-                        }
+                           }
+                      }
                         if (!valid) {
                             System.out.print("\n\tDo you want to try again? (Y/n)");
                             if (!SCANNER.nextLine().strip().toUpperCase().equals("Y")){
@@ -297,45 +319,24 @@ private static final Scanner SCANNER = new Scanner(System.in);
                             }
                             System.out.println();
                         }
+
+
+
+                    //System.out.println(LINE);
+                    System.out.print("\n\tDo you want to go back? (Y/n) ");
+                    if (SCANNER.nextLine().toUpperCase().strip().equals("Y")) screen = DASHBOARD;
+                    break;
                     }while (!valid);
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-                }
+           }
+    
+    }while(true);
     
     
-    
-    
-            }while(true);
-    
-    
+  }
+
 }
         
-}
+
 
 
 
