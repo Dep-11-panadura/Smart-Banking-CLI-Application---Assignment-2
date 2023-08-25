@@ -118,7 +118,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
                                 accounts =newaccounts;
                             System.out.println();
-                            System.out.printf(SUCCESS_MSG, String.format("%s:%s added successfully \n", id, name));
+                            System.out.printf(SUCCESS_MSG, String.format("%s%s added successfully \n", id, name));
                             System.out.print("\tDo you want to continue adding Deposit? (Y/n)");
                             if (!SCANNER.nextLine().toUpperCase().strip().equals("Y")){screen =DASHBOARD;}
                                // screen = DASHBOARD;
@@ -133,6 +133,74 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
                     do {
                           
+                        valid = true;
+                        System.out.print("\tEnter Account Number: ");  
+                        id = SCANNER.nextLine().toUpperCase().strip();
+                        if (id.isBlank()){
+                            System.out.printf(ERROR_MSG, "ID can't be empty");
+                            valid = false;
+                        }else if (!id.startsWith("SDB-") || id.length() < 8){
+                            System.out.printf(ERROR_MSG, "Invalid ID format");
+                            valid = false;
+                        }else{
+                            String number = id.substring(2);
+                            for (int i = 0; i < number.length(); i++) {
+                                if (!Character.isDigit(number.charAt(i))){
+                                    System.out.printf(ERROR_MSG, "Invalid ID format");
+                                    valid = false;
+                                    break;
+                                }
+                            }
+
+                            double current = 0.0;
+                            
+                            for (int i = 0; i < accounts.length; i++) {
+                                if (accounts[i][2].equals(Double.toString(current))){
+                                    
+                                    System.out.print("\tAccount Current Balance: " + accounts[i][2]);
+                               //System.out.printf("\tAccount Current Balance: accounts[i][2]%05d \n", (accounts.length + 1));
+                               
+                               valid = false;
+                               break;
+                                }
+                            }    
+                        
+                        
+
+
+
+                        do{
+                        valid = true;
+                        System.out.print("\tEnter Deposit value: ");
+                        value = SCANNER.nextDouble();
+                        SCANNER.nextLine();
+                        if ( value < 500){
+                            System.out.printf(ERROR_MSG, "Insufficent Amount");
+                            valid = false;
+                          }  //  break;
+                        }while(!valid);
+                        
+                       
+                        
+                        
+                        System.out.println();
+                        System.out.printf(SUCCESS_MSG, String.format("%s: Deposits successfully added \n", value));
+                        System.out.print("\tDo you want to continue Deposit ? (Y/n)");
+                        if (!SCANNER.nextLine().toUpperCase().strip().equals("Y"))
+                            screen = DASHBOARD;
+                        break;
+                        
+                        }
+                    }while (!valid);
+    
+    
+
+
+
+
+                    case WITHDRAWLS :
+
+                    do {
                         valid = true;
                         System.out.print("\tEnter Account Number: ");  
                         id = SCANNER.nextLine().toUpperCase().strip();
@@ -159,42 +227,24 @@ private static final Scanner SCANNER = new Scanner(System.in);
                                 }
                             }    
                         }
-                    }while (!valid);
-    
-    
 
-
-
-
- case WITHDRAWLS :
-
-                    do {
+                            do{
                         valid = true;
-                        System.out.print("\tEnter Account Number: ");  // C-ac
-                        id = SCANNER.nextLine().toUpperCase().strip();
-                        if (id.isBlank()){
-                            System.out.printf(ERROR_MSG, "ID can't be empty");
+                        System.out.print("\tEnter Deposit value: ");
+                        value = SCANNER.nextDouble();
+                        SCANNER.nextLine();
+                        if ( value < 100){
+                            System.out.printf(ERROR_MSG, "Insufficent Amount TO Withdraw");
                             valid = false;
-                        }else if (!id.startsWith("C-") || id.length() < 3){
-                            System.out.printf(ERROR_MSG, "Invalid ID format");
-                            valid = false;
-                        }else{
-                            String number = id.substring(2);
-                            for (int i = 0; i < number.length(); i++) {
-                                if (!Character.isDigit(number.charAt(i))){
-                                    System.out.printf(ERROR_MSG, "Invalid ID format");
-                                    valid = false;
-                                    break;
-                                }
-                            }
-                            for (int i = 0; i < accounts.length; i++) {
-                                if (accounts[i].equals(id)){
-                                    System.out.printf(ERROR_MSG, "Account Number already exists");
-                                    valid = false;
-                                    break;
-                                }
-                            }    
-                        }
+                          }  //  break;
+                        }while(!valid);
+
+
+
+
+
+
+
                     }while (!valid);
     
 
@@ -212,7 +262,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
                     do {
                         valid = true;
-                        System.out.print("\tEnter Ttansfer Account Number: ");  // C-ac
+                        System.out.print("\tEnter Ttansfer Account Number: ");  
                         id = SCANNER.nextLine().toUpperCase().strip();
                         if (id.isBlank()){
                             System.out.printf(ERROR_MSG, "ID can't be empty");
