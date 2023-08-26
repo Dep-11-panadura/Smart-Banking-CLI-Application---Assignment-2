@@ -27,10 +27,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
         String[][] accounts = new String[0][3];
       
-        // String[] depositIds = new String[0];
-        // String[] withdrawalIds = new String[0];
-        // String[] depositterName = new String [0];
-        // String[] withdrawalsNmae = new String [0];
+       
 
         String screen = DASHBOARD;
             
@@ -122,7 +119,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
                             System.out.printf(SUCCESS_MSG, String.format("%s%s added successfully \n", id, name));
                             System.out.print("\tDo you want to continue adding Deposit? (Y/n)");
                             if (!SCANNER.nextLine().toUpperCase().strip().equals("Y")){screen =DASHBOARD;}
-                               // screen = DASHBOARD;
+                              
                             valid = false;
                               break;
                            
@@ -155,38 +152,8 @@ private static final Scanner SCANNER = new Scanner(System.in);
                                 }
                             }
 
-                        //     double current = 0.0;
-                            
-                        //     for (int i = 0; i < accounts.length; i++) {
-                        //         if (accounts[i][2].equals(Double.toString(current))){
-                                    
-                        //             System.out.print("\tAccount Current Balance: " + accounts[i][2]);
-                        //        //System.out.printf("\tAccount Current Balance: accounts[i][2]%05d \n", (accounts.length + 1));
-                               
-                        //        valid = false;
-                        //        break;
-                        //         }
-                        //     }    
-                        
-                        
-
-
-
-                        // do{
-                        // valid = true;
-                        // System.out.print("\tEnter Deposit value: ");
-                        // value = SCANNER.nextDouble();
-                        // SCANNER.nextLine();
-                        // if ( value < 500){
-                        //     System.out.printf(ERROR_MSG, "Insufficent Amount");
-                        //     valid = false;
-                        //   }  //  break;
-                        // }while(!valid);
                         
                         boolean exists = false;
-                        // System.out.println("for loop-");
-                        // System.out.println(accounts.length);
-                        // System.out.print(accounts[0][0]+", "+accounts[1][0]+", "+accounts[2][0]);
           
                      loop1 :   for (int i = 0; i < accounts.length; i++) {
                           if (accounts[i][0].equals(id)) {
@@ -238,14 +205,6 @@ private static final Scanner SCANNER = new Scanner(System.in);
                        // continue;
                        valid = false;
 
-
-                        
-                        // System.out.println();
-                        // System.out.printf(SUCCESS_MSG, String.format("%s: Deposits successfully added \n", value));
-                        // System.out.print("\tDo you want to continue Deposit ? (Y/n)");
-                        // if (!SCANNER.nextLine().toUpperCase().strip().equals("Y"))
-                        //     screen = DASHBOARD;
-                        // break;
                         
                         }else{ screen = DASHBOARD; continue mainLoop;}
 
@@ -324,25 +283,18 @@ private static final Scanner SCANNER = new Scanner(System.in);
                    String.format("%s has been done successfully\n", "Withdraw"));
                 System.out.print("\tDo you want to continue (Y/n)? ");
                 if (SCANNER.nextLine().strip().toUpperCase().equals("Y")){
-                   // continue;
+               
                    valid = false;
                    continue;
   
                 }else{ 
                   screen = DASHBOARD; 
-                //  continue mainLoop;
+               
                 break loopWithdraw;
                 }
       
                     }while (!valid);
     
-
-
-
-
-
-
-
 
 
 
@@ -386,7 +338,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
                                 System.out.print("\n\tDo you want to try again? (Y/n)");
                                 if (!SCANNER.nextLine().strip().toUpperCase().equals("Y")) {
                                   screen = DASHBOARD;
-                                  //continue mainLoop;
+                                
                                 }else{screen = TRANSFER; continue;}
                               }
                   
@@ -523,7 +475,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
           
 
           newaccounts = new String[accounts.length - 1][3];
-       //   newBankDetails = new String[BankDetails.length - 1][3];
+      
 
           for (int i = 0; i < accounts.length; i++) {
             if (i < index3) {
@@ -548,14 +500,6 @@ private static final Scanner SCANNER = new Scanner(System.in);
             continue;
           screen = DASHBOARD;
           break;
-          
-          
-          
-          
-          
-          
-          
-          
           
           
             }
