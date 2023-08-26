@@ -33,7 +33,8 @@ private static final Scanner SCANNER = new Scanner(System.in);
         // String[] withdrawalsNmae = new String [0];
 
         String screen = DASHBOARD;
-  do{
+            
+        mainLoop:     do{
         final String APP_TITLE = String.format("%s%s%s",
             COLOR_BLUE_BOLD, screen, RESET);
 
@@ -143,7 +144,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
                             System.out.printf(ERROR_MSG, "Invalid ID format");
                             valid = false;
                         }else{
-                            String number = id.substring(2);
+                            String number = id.substring(4);
                             for (int i = 0; i < number.length(); i++) {
                                 if (!Character.isDigit(number.charAt(i))){
                                     System.out.printf(ERROR_MSG, "Invalid ID format");
@@ -261,13 +262,20 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
 
                     do {
+
+                        
+
+
+
+
+
                         valid = true;
                         System.out.print("\tEnter Ttansfer Account Number: ");  
                         id = SCANNER.nextLine().toUpperCase().strip();
                         if (id.isBlank()){
                             System.out.printf(ERROR_MSG, "ID can't be empty");
                             valid = false;
-                        }else if (!id.startsWith("C-") || id.length() < 3){
+                        }else if (!id.startsWith("SDB-") || id.length() < 3){
                             System.out.printf(ERROR_MSG, "Invalid ID format");
                             valid = false;
                         }else{
@@ -286,6 +294,15 @@ private static final Scanner SCANNER = new Scanner(System.in);
                                     break;
                                 }
                             }    
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         }
                     }while (!valid);
     
@@ -299,12 +316,12 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
                     do {
                         valid = true;
-                        System.out.print("\tEnter Account Number: ");  // C-ac
+                        System.out.print("\tEnter Account Number: ");  
                         id = SCANNER.nextLine().toUpperCase().strip();
                         if (id.isBlank()){
                             System.out.printf(ERROR_MSG, "ID can't be empty");
                             valid = false;
-                        }else if (!id.startsWith("C-") || id.length() < 3){
+                        }else if (!id.startsWith("SDB-") || id.length() < 3){
                             System.out.printf(ERROR_MSG, "Invalid ID format");
                             valid = false;
                         }else{
@@ -327,7 +344,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
                     }while (!valid);
     
 
- case DELETE_ACCOUNT :
+                        case DELETE_ACCOUNT :
                     
                     do {
                         valid = true;
@@ -336,7 +353,7 @@ private static final Scanner SCANNER = new Scanner(System.in);
                         if (id.isBlank()){
                             System.out.printf(ERROR_MSG, "ID can't be empty");
                             valid = false;
-                        }else if (!id.startsWith("C-") || id.length() < 3){
+                        }else if (!id.startsWith("SDB-") || id.length() < 3){
                             System.out.printf(ERROR_MSG, "Invalid ID format");
                             valid = false;
                         }else{
@@ -361,6 +378,29 @@ private static final Scanner SCANNER = new Scanner(System.in);
                                 System.out.printf(ERROR_MSG, "Customer ID does not exist");
                            }
                       }
+
+                         do{
+                        valid = true;
+                        System.out.print("\tEnter Customer Name to Delete: ");
+                        name = SCANNER.nextLine().strip();
+                        if (name.isBlank()){
+                            System.out.printf(ERROR_MSG, "Customer name can't be empty");
+                            valid = false;
+                            continue;
+                        }
+                        for (int i = 0; i < name.length(); i++) {
+                            if (!(Character.isLetter(name.charAt(i)) || 
+                                Character.isSpaceChar(name.charAt(i))) ) {
+                                System.out.printf(ERROR_MSG, "Invalid name");
+                                valid = false;
+                                break;
+                            }
+                        }
+                    }while(!valid);
+
+
+
+
                         if (!valid) {
                             System.out.print("\n\tDo you want to try again? (Y/n)");
                             if (!SCANNER.nextLine().strip().toUpperCase().equals("Y")){
@@ -376,7 +416,10 @@ private static final Scanner SCANNER = new Scanner(System.in);
                     System.out.print("\n\tDo you want to go back? (Y/n) ");
                     if (SCANNER.nextLine().toUpperCase().strip().equals("Y")) screen = DASHBOARD;
                     break;
-                    }while (!valid);
+                   
+                
+                
+                }while (!valid);
            }
     
     }while(true);
