@@ -132,6 +132,8 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
                   case DEPOSITS:
 
+                  int index1 = 0;
+
                     do {
                           
                         valid = true;
@@ -153,45 +155,102 @@ private static final Scanner SCANNER = new Scanner(System.in);
                                 }
                             }
 
-                            double current = 0.0;
+                        //     double current = 0.0;
                             
-                            for (int i = 0; i < accounts.length; i++) {
-                                if (accounts[i][2].equals(Double.toString(current))){
+                        //     for (int i = 0; i < accounts.length; i++) {
+                        //         if (accounts[i][2].equals(Double.toString(current))){
                                     
-                                    System.out.print("\tAccount Current Balance: " + accounts[i][2]);
-                               //System.out.printf("\tAccount Current Balance: accounts[i][2]%05d \n", (accounts.length + 1));
+                        //             System.out.print("\tAccount Current Balance: " + accounts[i][2]);
+                        //        //System.out.printf("\tAccount Current Balance: accounts[i][2]%05d \n", (accounts.length + 1));
                                
-                               valid = false;
-                               break;
-                                }
-                            }    
+                        //        valid = false;
+                        //        break;
+                        //         }
+                        //     }    
                         
                         
 
 
 
-                        do{
-                        valid = true;
-                        System.out.print("\tEnter Deposit value: ");
-                        value = SCANNER.nextDouble();
-                        SCANNER.nextLine();
-                        if ( value < 500){
-                            System.out.printf(ERROR_MSG, "Insufficent Amount");
-                            valid = false;
-                          }  //  break;
-                        }while(!valid);
+                        // do{
+                        // valid = true;
+                        // System.out.print("\tEnter Deposit value: ");
+                        // value = SCANNER.nextDouble();
+                        // SCANNER.nextLine();
+                        // if ( value < 500){
+                        //     System.out.printf(ERROR_MSG, "Insufficent Amount");
+                        //     valid = false;
+                        //   }  //  break;
+                        // }while(!valid);
                         
-                       
+                        boolean exists = false;
+                        System.out.println("for loop-");
+                        System.out.println(accounts.length);
+                        System.out.print(accounts[0][0]+", "+accounts[1][0]+", "+accounts[2][0]);
+          
+                     loop1 :   for (int i = 0; i < accounts.length; i++) {
+                          if (accounts[i][0].equals(id)) {
+                            index1 = i;
+                            exists = true;
+                            break loop1;
+                          }
+                        }
+                        if (!exists) {
+                          valid = false;
+                          System.out.printf(ERROR_MSG, "Account is not Found");
+                        }
                         
+                        System.out.println("\n------------>\n"+valid);
+
+                         if (!valid) {
+                         System.out.print("\n\tDo you want to try again? (Y/n)");
+                            if (!SCANNER.nextLine().strip().toUpperCase().equals("Y")) {
+                             screen = DASHBOARD;
+                            continue mainLoop;
+                             }else{screen = DEPOSITS; continue;}
+                        }
+
+                    }
+                    System.out.println();
+                    System.out.println(accounts[index1][2]);
+                    Double ValueOfBalance = Double.valueOf(accounts[index1][2]);
+                    System.out.println(ValueOfBalance);
+      
+                    System.out.printf("\tCurrent Balance : %.2f \n", ValueOfBalance);
+      
+                    System.out.print("\tDeposit amount : ");
+                    Double depositAmount = SCANNER.nextDouble();
+                    SCANNER.nextLine();
+      
+                    if (!(depositAmount > 500)) {
+                      System.out.print("\tInsufficient Amount\n");
+                      break;
+                    } else {
+                      accounts[index1][2] = Double.toString(Double.valueOf(accounts[index1][2]) + depositAmount);
+                    }
+      
+                    System.out.printf("\tNew Account Balance: %.2f \n", Double.valueOf(accounts[index1][2]));
+      
+                    System.out.printf(SUCCESS_MSG,
+                        String.format("%s has been done successfully", "Diposit"));
+                    System.out.print("\tDo you want to continue (Y/n)? ");
+                    if (SCANNER.nextLine().strip().toUpperCase().equals("Y")){
+                       // continue;
+                       valid = false;
+
+
                         
-                        System.out.println();
-                        System.out.printf(SUCCESS_MSG, String.format("%s: Deposits successfully added \n", value));
-                        System.out.print("\tDo you want to continue Deposit ? (Y/n)");
-                        if (!SCANNER.nextLine().toUpperCase().strip().equals("Y"))
-                            screen = DASHBOARD;
-                        break;
+                        // System.out.println();
+                        // System.out.printf(SUCCESS_MSG, String.format("%s: Deposits successfully added \n", value));
+                        // System.out.print("\tDo you want to continue Deposit ? (Y/n)");
+                        // if (!SCANNER.nextLine().toUpperCase().strip().equals("Y"))
+                        //     screen = DASHBOARD;
+                        // break;
                         
                         }
+
+
+
                     }while (!valid);
     
     
