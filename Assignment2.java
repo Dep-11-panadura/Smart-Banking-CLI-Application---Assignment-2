@@ -260,51 +260,80 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
                     case WITHDRAWLS :
 
-                    do {
+                    int index2 = 0;
+                    
+                    
+                    loopWithdraw:     do {
                         valid = true;
-                        System.out.print("\tEnter Account Number: ");  
-                        id = SCANNER.nextLine().toUpperCase().strip();
-                        if (id.isBlank()){
-                            System.out.printf(ERROR_MSG, "ID can't be empty");
-                            valid = false;
-                        }else if (!id.startsWith("SDB-") || id.length() < 8){
-                            System.out.printf(ERROR_MSG, "Invalid ID format");
-                            valid = false;
-                        }else{
-                            String number = id.substring(4);
-                            for (int i = 0; i < number.length(); i++) {
-                                if (!Character.isDigit(number.charAt(i))){
-                                    System.out.printf(ERROR_MSG, "Invalid ID format");
-                                    valid = false;
-                                    break;
-                                }
-                            }
-                            for (int i = 0; i < accounts.length; i++) {
-                                if (accounts[i].equals(id)){
-                                    System.out.printf(ERROR_MSG, "Account Number already exists");
-                                    valid = false;
-                                    break;
-                                }
-                            }    
-                        }
+            System.out.print("\tEnter the Account Id (Withdraw): ");
+            id = SCANNER.nextLine().toUpperCase().strip();
+            if (id.isBlank()) {
+              System.out.printf(ERROR_MSG, "ID can't be empty");
+              valid = false;
+            } else if (!id.startsWith("SDB-") || id.length() < 8) {
+              System.out.printf(ERROR_MSG, "Invalid ID format");
+              valid = false;
+            } else {
+              String number = id.substring(4);
+              for (int i = 0; i < number.length(); i++) {
+                if (!Character.isDigit(number.charAt(i))) {
+                  System.out.printf(ERROR_MSG, "Invalid ID format");
+                  valid = false;
+                  break;
+                }
+              }
+              boolean exists = false;
+              for (int i = 0; i < accounts.length; i++) {
+                if (accounts[i][0].equals(id)) {
+                  index2 = i;
+                  exists = true;
+                  break;
+                }
+              }
+              if (!exists) {
+                valid = false;
+                System.out.printf(ERROR_MSG, "Account does not exist");
+              }
+            }
 
-                            do{
-                        valid = true;
-                        System.out.print("\tEnter Deposit value: ");
-                        value = SCANNER.nextDouble();
-                        SCANNER.nextLine();
-                        if ( value < 100){
-                            System.out.printf(ERROR_MSG, "Insufficent Amount TO Withdraw");
-                            valid = false;
-                          }  //  break;
-                        }while(!valid);
-
-
-
-
-
-
-
+            if (!valid) {
+                System.out.print("\n\tDo you want to try again? (Y/n)");
+                if (!SCANNER.nextLine().strip().toUpperCase().equals("Y")) {
+                  screen = DASHBOARD;
+                  //continue mainLoop;
+                }else{screen = WITHDRAWLS; continue;}
+              }
+                System.out.println();
+  
+                System.out.printf("\tCurrent Balance : %.2f\n", Double.valueOf(accounts[index2][2]));
+  
+                System.out.print("\tWithdraw amount : ");
+                Double withdraw = SCANNER.nextDouble();
+                SCANNER.nextLine();
+  
+                if (!(withdraw > 100 || (Double.valueOf(accounts[index2][2]) - withdraw) > 500)) {
+                  System.out.print("Insufficient Amount");
+                  break;
+                } else {
+                  accounts[index2][2] = (Double.toString(Double.valueOf(accounts[index2][2]) - withdraw));
+                }
+  
+                System.out.printf("\tNew Account Balance: %.2f\n\n", Double.valueOf(accounts[index2][2]));
+  
+                   System.out.printf(SUCCESS_MSG,
+                   String.format("%s has been done successfully\n", "Withdraw"));
+                System.out.print("\tDo you want to continue (Y/n)? ");
+                if (SCANNER.nextLine().strip().toUpperCase().equals("Y")){
+                   // continue;
+                   valid = false;
+                   continue;
+  
+                }else{ 
+                  screen = DASHBOARD; 
+                //  continue mainLoop;
+                break loopWithdraw;
+                }
+      
                     }while (!valid);
     
 
@@ -319,14 +348,12 @@ private static final Scanner SCANNER = new Scanner(System.in);
 
                     case TRANSFER:
 
-
+                   
+                    int customer = 0;
+                    Double transfer = 0.00;
+                    int[] cusId = new int[2]; 
+          
                     do {
-
-                        
-
-
-
-
 
                         valid = true;
                         System.out.print("\tEnter Ttansfer Account Number: ");  
@@ -355,16 +382,49 @@ private static final Scanner SCANNER = new Scanner(System.in);
                             }    
                         
                         
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                            if (!valid) {
+                                System.out.print("\n\tDo you want to try again? (Y/n)");
+                                if (!SCANNER.nextLine().strip().toUpperCase().equals("Y")) {
+                                  screen = DASHBOARD;
+                                  //continue mainLoop;
+                                }else{screen = TRANSFER; continue;}
+                              }
+                  
+                                 System.out.printf("\tAccount Name: %s\n",accounts[customer][1]);
+                                 System.out.println();
+                                 customer++;
+                  
                         }
                     }while (!valid);
+
+
+          System.out.printf("\t\nFrom Account Balance: %.2f\n",Double.valueOf(accounts[cusId[0]][2]));
+          System.out.printf("\tTo Account Balance: %.2f\n\n",Double.valueOf(accounts[cusId[1]][2]));
+
     
+
+           System.out.print("\tEnter Transfer amount : ");
+              transfer = SCANNER.nextDouble();
+              SCANNER.nextLine();
+
+              if (!(transfer> 100 || (Double.valueOf(accounts[cusId[0]][2])-transfer) > 500)) {
+                System.out.print("Insufficient Amount");
+                break;
+              } else {
+
+                Double tax = 0.02 * transfer;
+                System.out.println("Tax = "+ tax);
+
+                accounts[cusId[0]][2] = 
+                (Double.toString(Double.valueOf(Double.valueOf(accounts[cusId[0]][2])- transfer - tax)));
+
+                 accounts[cusId[1]][2] = 
+                (Double.toString(Double.valueOf(accounts[cusId[1]][2])+ transfer));
+             
+                System.out.printf("\tNew From Account Balance: %.2f\n",Double.valueOf(accounts[cusId[0]][2]));
+                System.out.printf("\tNew To Account Balance: %.2f\n", Double.valueOf(accounts[cusId[1]][2]));
+            
+            }
 
 
 
@@ -381,11 +441,11 @@ private static final Scanner SCANNER = new Scanner(System.in);
                         if (id.isBlank()){
                             System.out.printf(ERROR_MSG, "ID can't be empty");
                             valid = false;
-                        }else if (!id.startsWith("SDB-") || id.length() < 3){
+                        }else if (!id.startsWith("SDB-") || id.length() < 8){
                             System.out.printf(ERROR_MSG, "Invalid ID format");
                             valid = false;
                         }else{
-                            String number = id.substring(2);
+                            String number = id.substring(4);
                             for (int i = 0; i < number.length(); i++) {
                                 if (!Character.isDigit(number.charAt(i))){
                                     System.out.printf(ERROR_MSG, "Invalid ID format");
